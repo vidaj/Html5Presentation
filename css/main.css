@@ -1,0 +1,26 @@
+
+
+
+body, pre {
+    font:  16px Verdana, sans-serif;
+}
+
+body {
+    background-color: #000; /* #f4f4f4;*/
+}
+
+#mainFooter {
+    color: #f5f5f5;
+}
+
+p[rel=author]{
+    position: absolute;
+    bottom: 0;
+    right: 40%;
+}
+
+#knowitLink {
+    position:absolute;
+    right:0;
+    bottom:0;
+}

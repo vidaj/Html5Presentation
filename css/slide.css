@@ -1,0 +1,90 @@
+
+
+.presentation {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.slide {
+    display: none;
+    width: 70%;
+    height: 70%;
+    
+    border-style: solid;
+    border-color: black;
+    border-width: 2px;
+    border-radius: 15px;
+    
+    background-color: white;
+
+    position: absolute;
+    left: 15%;
+    top: 10%;
+    overflow: hidden;
+
+    padding-left: 3%;
+    padding-top: 1%;
+
+    -webkit-transform: scale(0.8) translateZ(0);
+    -moz-transform: scale(0.8);
+    -o-transform: scale(0.8);
+    -ms-transform: scale(0.8);
+    transform: scale(0.8);
+
+    -webkit-transition-property: margin, -webkit-transform, opacity;
+    -webkit-transition-duration: 0.3s, 0.3s, 0.3s;
+    -webkit-transition-timing-function: ease-in-out;
+
+    -moz-transition-property: margin, -moz-transform, opacity;
+    -moz-transition-duration: 0.3s, 0.3s, 0.3s;
+    -moz-transition-timing-function: ease-in-out;
+
+    -o-transition-property: margin, -moz-transform, opacity;
+    -o-transition-duration: 0.3s, 0.3s, 0.3s;
+    -o-transition-timing-function: ease-in-out;
+
+    -ms-transition-property: margin -ms-transform, opacity;
+    -ms-transition-duration: 0.3s, 0.3s, 0.3s;
+    -ms-transition-timing-function: ease-in-out;
+
+    transition-property: margin, transform, opacity;
+    transition-duration: 0.3s, 0.3s, 0.3s;
+    transition-timing-function: ease-in-out;
+}
+
+.slide.previous, .slide.next, .slide.farPrevious, .slide.farNext {
+    opacity: 0.35;
+}
+
+.slide.active, .slide.previous, .slide.next, .slide.farPrevious, .slide.farNext {
+    display: block;
+}
+
+.slide.previous {
+    margin-left: -70%; /*-900px;*/
+}
+
+.slide.farPrevious {
+    margin-left: -140%; /*-1800px;*/
+}
+
+.slide.next {
+    margin-left: 70%; /* 900px */
+}
+
+.slide.farNext {
+    margin-left: 140%;/*1800px;*/
+}
+
+.slide.active {
+    -webkit-transform: scale(1.0);
+    -moz-transform: scale(1.0);
+    -o-transform: scale(1.0);
+    -ms-transform: scale(1.0);
+    transform: scale(1.0);
+}
+

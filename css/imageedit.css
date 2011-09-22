@@ -1,0 +1,8 @@
+.disabled {
+    display:none;
+}
+
+.editMenu {
+    position: absolute;
+    top: 0;
+}
