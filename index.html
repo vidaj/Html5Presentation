@@ -9,13 +9,14 @@
     <link rel="stylesheet" href="css/slide1.css">
     <script src="js/jquery-1.6.4.min.js"></script>
     <script src="js/jquery.mousewheel.js"></script>
+    <script src="js/eventHub.js"></script>
     <script src="js/html5slides.js"></script>
     <script src="js/screenshot.js"></script>
     <script src="js/imagetools.js"></script>
 
     <script>
         $(document).ready(function(){
-            new VideoSnapshotCapturer( $('#slide1 video')[0], $('#slide1 .snapshotList')[0], Editor );
+            new VideoSnapshotCapturer( $('#slide1 video')[0], $('#slide1 .snapshotList')[0], ImageEditor );
         });
     </script>
     <script id="canvasEditTemplate" type="text/html">
@@ -36,7 +37,7 @@
                 HTML5 har innebygd støtte for video.
             </p>
             <div class="videoContainer">
-                <video controls autoplay>
+                <video height="180" width="320">
                     <source src="video/Lasercutting-video.ogg" type="video/ogg" codecs="theora, vorbis">
                 </video>
                 <div id="snapshotContainer">

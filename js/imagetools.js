@@ -6,10 +6,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
-var ImageStats = function(image) {
-    this.height = image.clientHeight;
-    this.width = image.clientWidth;
-};
+
 
 var Scale = function() {
     var Scale = function(steps, updater) {
@@ -97,94 +94,171 @@ var Rotate = function() {
             stop: function(e) { scope.stop.call(scope, e); },
             update: function(e) { scope.update.call(scope, e); }
         };
-    }
+    };
 
     return Rotate;
 }();
 
-var noAction = {
-    activate: function(canvas) {},
-    deactivate: function(canvas) {}
+var ImageStats = function(image) {
+    this.height = image.clientHeight;
+    this.width = image.clientWidth;
 };
 
 
-var ImageUpdater = function(canvas, image, imageStats) {
-    this.scaleAction = new Scale(10, this);
-    this.rotateAction = new Rotate(this);
-    this.controls = [this.scaleAction, this.rotateAction];
-    this.context = canvas.getContext('2d');
-    this.canvas = canvas;
-    this.image = image;
-    this.imageStats = imageStats;
-    this.currentAction = noAction;
-};
-
-ImageUpdater.prototype.changeAction = function(action) {
-    this.currentAction.deactivate(this.canvas);
-    this.currentAction = action;
-    this.currentAction.activate(this.canvas);
-};
-
-ImageUpdater.prototype.update = function() {
-    var length = this.controls.length;
-    var controls = this.controls;
-
-    this.context.save();
-    this.context.clearRect(0, 0, this.imageStats.width, this.imageStats.height);
-    this.context.translate(this.imageStats.width / 2, this.imageStats.height / 2);
-    for (var i = 0; i < length; i++) {
-        var control = controls[i];
-        control.setTransform(this.context);
-    }
-    this.context.drawImage(this.image, -(this.imageStats.width/2), -(this.imageStats.height/2), this.imageStats.width, this.imageStats.height);
-    this.context.restore();
-};
+var ImageUpdater = function() {
 
 
 
+    /**
+     *
+     * @param canvas The canvas that the edited image will be painted on.
+     * @param image The original image. This must be visible on the page to calculate correct drawing-sizes.
+     * @param eventHub The eventHub connected to this specific image.
+     */
+    var ImageUpdater = function(canvas, image, eventHub) {
+        var me = this;
+        this.actions = {
+            "Rotate" : new Rotate(me),
+            "Scale" : new Scale(10, me),
+            "NoAction" : {
+                activate: function(canvas) {},
+                deactivate: function(canvas) {},
+                setTransform: function(context) {}
+            }
+        };
 
-var Editor = function(image, controlTemplate) {
-    this.image = image;
-    this.imageStats = new ImageStats(image);
-    this.canvas = document.createElement('canvas');
-    $(this.canvas).attr('height', this.imageStats.height);
-    $(this.canvas).attr('width', this.imageStats.width);
-    this.canvas.getContext('2d').drawImage(image, 0, 0);
+        this.canvas = canvas;
+        this.context = canvas.getContext('2d');
+        this.image = image;
+        this.imageStats = new ImageStats(canvas);
+        this.currentAction = this.actions["NoAction"];
 
-    this.updater = new ImageUpdater(this.canvas, this.image, this.imageStats);
+        eventHub.subscribeTo("ImgEdit:ChangeTool", this.changeAction, this);
 
-    var controls = $(controlTemplate.clone());
-    controls.addClass('disabled');
-    var rotateButton = controls.find('.rotateButton');
-    var scaleButton = controls.find('.scaleButton');
-    var doneButton = controls.find('.doneEditingButton');
-
-    var enableEditAction = function() {
-        controls.removeClass('disabled');
+        this.update();
     };
 
-    $(this.canvas).bind('click', enableEditAction);
+    ImageUpdater.prototype.changeAction = function(action) {
+        var newAction = this.actions[action];
+        this.currentAction.deactivate(this.canvas);
+        this.currentAction = newAction;
+        this.currentAction.activate(this.canvas);
+    };
 
-    $(this.canvas).insertBefore($(image));
-    controls.insertAfter(this.canvas);
+    ImageUpdater.prototype.update = function() {
 
-    $(image).detach();
+        var height = this.canvas.clientHeight;
+        var width = this.canvas.clientWidth;
 
-    var scope = this;
-    rotateButton.bind('click', function() {
-       scope.updater.changeAction(scope.updater.rotateAction);
-    });
+        var halfHeight = Math.abs(height / 2);
+        var halfWidth = Math.abs(width & 2);
 
-    scaleButton.bind('click', function() {
-       scope.updater.changeAction(scope.updater.scaleAction);
-    });
+        this.context.save();
+        this.context.clearRect(0, 0, width, height);
+        this.context.translate(halfWidth, halfHeight);
 
-    $(doneButton).bind('click', function() {
+        for (var controlKey in this.actions) {
+            if (this.actions.hasOwnProperty(controlKey)) {
+                this.actions[controlKey].setTransform(this.context);
+            }
+        }
+        this.context.drawImage(this.image, -halfWidth, -halfHeight, width, height);
+        this.context.restore();
+    };
+
+    return ImageUpdater;
+}();
+
+var elementFactory = {
+    createCanvas: function() {
+        return document.createElement('canvas');
+    }
+};
+
+var ImageEditorView = function() {
+
+    var View = function(eventHub) {
+        this.eventHub = eventHub;
+        eventHub.subscribeTo("ImgEdit:SetupControls", this.setupImageEditControls, this);
+    };
+
+
+    /**
+     * Creates a canvas from the image, and replaces the image with the canvas in the DOM.
+     * @param image
+     * @return {HTMLElement} The created canvas.
+     */
+
+    View.prototype.replaceImageWithCanvas = function(image) {
+        var imageStats = new ImageStats(image);
+        
+        image = $(image);
+
+        var canvas = elementFactory.createCanvas();
+        $(canvas).addClass('snapshot');
+        console.log(imageStats);
+        $(canvas).attr('height', imageStats.height);
+        $(canvas).attr('width', imageStats.width);
+
+        $(canvas).insertBefore(image);
+        image.detach();
+        return canvas;
+    };
+
+    View.prototype.setupImageEditControls = function(canvas, actions) {
+        var controlTemplate = $($('#canvasEditTemplate')[0].innerHTML);
+        var controls = controlTemplate.clone();
+
+        var rotateButton = controls.find('.rotateButton');
+        var scaleButton = controls.find('.scaleButton');
+        var doneButton = controls.find('.doneEditingButton');
+
+        rotateButton.bind('click', actions['rotate']);
+        scaleButton.bind('click', actions['scale']);
+        doneButton.bind('click', actions['done']);
+
+        var activateEditorAction = function() {
+            controls.removeClass('disabled');
+            $(canvas).unbind('click', activateEditorAction);
+        };
+
         controls.addClass('disabled');
-        scope.updater.changeAction(noAction);
-        $(scope.canvas).bind('click', enableEditAction);
-    })
+        $(canvas).bind('click', activateEditorAction);
 
+        doneButton.bind('click', function() {
+            controls.addClass('disabled');
+            $(canvas).bind('click', activateEditorAction);
+        });
+
+        controls.insertAfter(canvas);
+    };
+
+    return View;
+}();
+
+
+
+var ImageEditor = function(image) {
+    var eventHub = new EventHub();
+
+    var view = new ImageEditorView(eventHub);
+    var canvas = view.replaceImageWithCanvas(image);
+    var model = new ImageUpdater(canvas, image, eventHub);
+
+    console.log($('video')[0].clientHeight);
+    console.log($('video')[0].clientWidth);
+
+    console.log(canvas.clientHeight);
+    console.log(canvas.clientWidth);
+
+
+    var actions = {
+        rotate: function() { eventHub.fireEvent("ImgEdit:ChangeTool", "Rotate"); },
+        scale: function() { eventHub.fireEvent("ImgEdit:ChangeTool", "Scale"); }
+    };
+
+    //eventHub.fireEvent("ImgEdit:SwapImageWithCanvas", image, canvas);
+    eventHub.fireEvent("ImgEdit:SetupControls", canvas, actions);
 };
 
 

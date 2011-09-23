@@ -2,21 +2,23 @@
     
 }
 
+.videoContainer {
+    display: block;
+    padding: 0;
+    margin:  0;
+
+}
 
 #snapshotContainer {
     position: absolute;
-    right: 10%;
+    right: 1%;
     top: 20%;
 }
 
-.snapshot  {
-    padding:  0;
-    margin:  0;
-}
 
-#slide1 video  {
-    width: 50%;
-    height: 50%;
+video, .snapshot, .videoContainer  {
+    width: 320px;
+    height: 180px;
     padding:  0;
     margin:  0;
 }
