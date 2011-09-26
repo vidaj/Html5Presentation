@@ -18,7 +18,7 @@ var VideoSnapshotCapturer = function() {
         console.log(this.video.videoHeight);
         console.log(this.video.videoWidth);
 
-        console.log(document.defaultView.getComputedStyle(this.video, "").getPropertyValue("width"));
+            console.log(document.defaultView.getComputedStyle(this.video, "").getPropertyValue("width"));
 
         snapshot.height = this.video.clientHeight;
         snapshot.width = this.video.clientWidth;

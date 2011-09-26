@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="css/imageedit.css">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/slide.css">
-    <link rel="stylesheet" href="css/slide1.css">
+    <link rel="stylesheet" href="css/slides.css">
     <script src="js/jquery-1.6.4.min.js"></script>
     <script src="js/jquery.mousewheel.js"></script>
     <script src="js/eventHub.js"></script>
@@ -16,7 +16,7 @@
 
     <script>
         $(document).ready(function(){
-            new VideoSnapshotCapturer( $('#slide1 video')[0], $('#slide1 .snapshotList')[0], ImageEditor );
+            new VideoSnapshotCapturer( $('#video video')[0], $('#video .snapshotList')[0], ImageEditor );
         });
     </script>
     <script id="canvasEditTemplate" type="text/html">
@@ -29,7 +29,195 @@
 </head>
 <body>
     <div class="presentation">
-        <section class="slide" id="slide1">
+
+
+
+        <section class="slide" id="introslide">
+            <header>
+                <h1>HTML5 Workshop</h1>
+            </header>
+            <img src="img/HTML5_Logo_256.png" alt="HTML5 logo"/>
+        </section>
+
+        <section class="slide" id="aboutslide">
+            <header>
+                <h1>Hvem er vi?</h1>
+            </header>
+            <ul>
+                <li>Vidar Johansen (<a href="mailto:vij@knowit.no">vij@knowit.no</a>) (<a href="http://twitter.com/vidaj">@vidaj</a>)</li>
+                <li>Robin Skoglund (<a href="mailto:rsk@knowit.no">rsk@knowit.no</a>) (<a href="http://twitter.com/blakefate">@blakefate)</a></li>
+            </ul>
+        </section>
+
+        <section class="slide" id="knowit">
+            <header>
+                <h1>Jobbe i Knowit?</h1>
+            </header>
+            <img width="512" height="340" src="img/Jobb.jpg"/>
+        </section>
+        
+        <section class="slide" id="toc_slide">
+            <header>
+                <h1>Hva skjer i dag</h1>
+            </header>
+            <ul>
+                <li>Hva er nytt i HTML5</li>
+                <li>Nye JavaScript APIer i HTML5</li>
+                <li>Mat på ett eller annet tidspunkt</li>
+                <li>Koding! Implementere basic chat med WebSockets</li>
+            </ul>
+        </section>
+
+        <section class="slide" id="getting_started">
+            <header>
+                <h1>Hvordan komme i gang med HTML5</h1>
+            </header>
+            <pre>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="no"&gt;
+    &lt;head&gt;
+        &lt;meta charset="UTF-8"&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+            </pre>
+            <p>Som er bedre enn tidligere:</p>
+            <pre>
+&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+                "http://www.w3.org/TR/html4/strict.dtd"&gt;
+&lt;html lang="no"&gt;
+    &lt;head&gt;
+        &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8"&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+            </pre>
+        </section>
+
+        <section class="slide" id="new_elements">
+            <header>
+                <h1>Nye elementer</h1>
+            </header>
+            <a class="source" href="http://www.w3.org/TR/html5-diff/#new-elements">http://www.w3.org/TR/html5-diff/#new-elements</a>
+            <ul>
+                <li>section</li>
+                <li>article</li>
+                <li>aside</li>
+                <li>hgroup</li>
+                <li>header</li>
+                <li>footer</li>
+                <li>nav</li>
+                <li>figure</li>
+                <li>figcaption</li>
+                <li>video</li>
+                <li>audio</li>
+                <li>canvas</li>
+                <li>track</li>
+                <li>embed</li>
+                <li>mark</li>
+                <li>progress</li>
+                <li>meter</li>
+                <li>time</li>
+                <li>ruby, rt, rp</li>
+                <li>bdi</li>
+                <li>wbr</li>
+                <li>command</li>
+                <li>details</li>
+                <li>summary</li>
+                <li>datalist</li>
+                <li>keygen</li>
+                <li>output</li>
+            </ul>
+        </section>
+        <section class="slide" id="removed_elements">
+            <header>
+                <h1>Fjernede elementer</h1>
+            </header>
+            <a class="source" href="http://www.w3.org/TR/html5-diff/#absent-elements">http://www.w3.org/TR/html5-diff/#absent-elements</a>
+            <ul>
+                <li>basefont</li>
+                <li>big</li>
+                <li>center</li>
+                <li>font</li>
+                <li>strike</li>
+                <li>tt</li>
+                <li>frame</li>
+                <li>frameset</li>
+                <li>noframes</li>
+                <li>acronym</li>
+                <li>applet</li>
+                <li>dir</li>
+            </ul>
+        </section>
+
+        <section class="slide" id="canvas">
+            <header>
+                <h1>Canvas</h1>
+            </header>
+
+
+            <pre>
+
+
+    var canvas = document.getElementById('myCanvas');
+    var image = document.getElementById('myImage');
+
+    var context = canvas.getContext('2d');
+
+    context.save();
+
+    context.scale(2.0, 2.0);
+
+    context.drawImage(image, 0, 0);
+
+    context.restore();
+
+
+            </pre>
+        </section>
+
+        <section class="slide" id="canvas_drawing">
+            <header>
+                <h1>Canvas - drawing</h1>
+            </header>
+
+            <canvas id="myCanvas" height="100" width="100" style="border-style: dotted"></canvas>
+            <script>
+                var canvas = document.getElementById('myCanvas');
+                var context = canvas.getContext('2d');
+
+                context.save();
+                context.fillStyle = "rgb(200, 0, 0)";
+                context.fillRect(10, 10, 55, 50);
+                context.restore();
+            </script>
+            <pre>
+
+    var canvas = document.getElementById('myCanvas');
+    var context = canvas.getContext('2d');
+
+    context.save();
+
+    context.fillStyle = "rgb(200, 0, 0)";
+    context.fillRect(10, 10, 55, 50);
+
+    context.restore();
+            </pre>
+        </section>
+
+        <section class="slide" id="canvas_link">
+            <header>
+                <h1>Canvas - videre lesing</h1>
+            </header>
+
+            <a href="http://diveintohtml5.org/canvas.html">http://diveintohtml5.org/canvas.html</a>
+
+        </section>
+
+
+        <section class="slide" id="video">
             <header>
                 <h1>Video</h1>
             </header>
@@ -52,31 +240,265 @@
 </pre>
         </section>
 
-        <section class="slide" id="slide2">
+        <section class="slide" id="forms_intro">
             <header>
-                <h1>Slide 2</h1>
+                <h1>Forms</h1>
             </header>
-            <p>
-                Tekst for slide 2.
-            </p>
         </section>
 
-        <section class="slide" id="slide3">
+        <section class="slide" id="forms_autofocus">
             <header>
-                <h1>Slide 3</h1>
+                <h1>Autofocus</h1>
             </header>
             <p>
-                Tekst for slide 3.
+                Det er må mulig å spesifisere i markup hvilket element som automatisk får fokus.
+            </p>
+<pre>
+    <form>
+        &lt;input name="q" autofocus&gt;
+        &lt;input type="submit" value="Search"&gt;
+    </form>
+</pre>
+            <p>
+                Fungerer input (bortsett fra når type = hidden), select, textarea og button.
             </p>
         </section>
-
-        <section class="slide" id="slide4">
+        <section class="slide" id="forms_placeholder">
             <header>
-                <h1>Slide 4</h1>
+                <h1>Placeholder</h1>
+            </header>
+
+            <p>Native støtte for placeholder i input-felter</p>
+            <input type="email" placeholder="your.email@example.com">
+<pre>
+    &lt;input type="email" placeholder="your.email@example.com&gt;
+</pre>
+        </section>
+
+        <section class="slide" id="forms_form_attribute">
+            <header>
+                <h1>Form-attributtet</h1>
             </header>
             <p>
-                Tekst for slide 4.
+                Tidligere:
             </p>
+<pre>
+    &lt;form id="myForm"&gt;
+        &lt;label for="email"&gt;Email:&lt;/label&gt;
+        &lt;input type="email" name="email"&gt;
+    &lt;/form&gt;
+</pre>
+            <p>Nå er dette mulig:</p>
+<pre>
+    &lt;label&gt;
+        &lt;input type="email" form="myForm" name="email"&gt;
+    &lt;/label&gt;
+    &lt;form id="myForm&gt;&lt;/form&gt;
+</pre>
+        </section>
+
+        <section class="slide" id="forms_required">
+            <header>
+                <h1>Required-attributtet</h1>
+            </header>
+
+            <form id="form_with_required" action="#">
+                <label>Email:
+                    <input type="email" name="email" required>
+                </label>
+                <button type="submit">Submit</button>
+            </form>
+
+            <pre>
+&lt;form id="form_with_required" action="#" &gt;
+    &lt;label&gt;Email:
+        &lt;input type="email" name="email" required&gt;
+    &lt;/label&gt;
+    &lt;button type="submit"&gt;Submit&lt;/button&gt;
+&lt;/form&gt;
+            </pre>
+        </section>
+
+        <section class="slide" id="form_input_types">
+            <header>
+                <h1>Input types</h1>
+            </header>
+
+            <div id="form_type_examples">
+                <form>
+                    <label>Email:<input type="email"></label>
+                    <label>Url: <input type="url"></label>
+                    <label>Spinbox: <input type="number" min="0" max="10" step="2" value="6"></label>
+                    <label>Slider: <input type="range" min="0" max="10" step="2" value="6"></label>
+                    <label>Datepicker: <input type="date"></label>
+                    <label>Search: <input type="search"></label>
+                    <label>Colorpicker: <input type="color"></label>
+                    <label>Pattern: <input type="text" pattern="[0-9]{13}"></label>
+                    <button type="submit">Go</button>
+                </form>
+            </div>
+<pre>
+    &lt;input type="email"&gt;
+    &lt;input type="url"&gt;
+    &lt;input type="number" min="0" max="10" step="2" value="6"&gt;
+    &lt;input type="range" min="0" max="10" step="2" value="6"&gt;
+    &lt;input type="date"&gt;
+    &lt;input type="search"&gt;
+    &lt;input type="color"&gt;
+    &lt;input type="text" pattern="[0-9]{13}"&gt;
+</pre>
+        </section>
+
+        <section class="slide" id="new_apis">
+            <header>
+                <h1>Nye APIer</h1>
+            </header>
+            <ul>
+                <li>Video/Audio</li>
+                <li>Canvas 2D/3D)</li>
+                <li>Offline</li>
+                <li>Editing</li>
+                <li>Drag & Drop</li>
+                <li>History</li>
+                <li>WebSockets</li>
+                <li>LocalStorage</li>
+                <li>GeoLocation</li>
+                <li>File API</li>
+                <li>JSON</li>
+            </ul>
+        </section>
+
+        <section class="slide" id="JSON">
+            <header>
+                <h1>JSON</h1>
+            </header>
+
+<pre>
+    var myObject = {
+        title: "My title",
+        content: "This is my content"
+    };
+    var jsonVersion = JSON.stringify(myObject);
+    var object = JSON.parse(jsonVersion);
+</pre>
+        </section>
+
+        <section class="slide" id="localStorage">
+            <header>
+                <h1>LocalStorage</h1>
+            </header>
+
+            <pre>
+    localStorage.("myKey", "myData");
+    localStorage.getItem("myKey");
+            </pre>
+        </section>
+
+        <section class="slide" id="localStorage_JSON">
+            <header>
+                <h1>LocalStorage</h1>
+            </header>
+
+            <pre>
+    var myObjects = [
+        { title: "Horaah", number: 1},
+        { title: "Foo", number: 2}
+    ]:
+    localStorage.("myKey", JSON.stringify(myObjects);
+    var storedVersion = JSON.parse(localStorage.getItem("myKey"));
+            </pre>
+        </section>
+
+        <section class="slide" id="geolocation">
+            <header>
+                <h1>GeoLocation</h1>
+            </header>
+
+            <pre>
+
+
+    navigator.geolocation.getCurrentPosition(callback);
+
+    function callback(position) {
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+        var accuracy = position.coords.accuracy;
+
+        position.coords.altitude;
+        position.coords.altitudeAccuracy;
+        position.coords.heading;
+        position.coords.speed:
+        position.timestamp;
+    }
+
+            </pre>
+        </section>
+
+        <section class="slide" id="geolocation_cont">
+            <header>
+                <h1>GeoLocation</h1>
+            </header>
+
+            <pre>
+
+
+    navigator.geolocation.getCurrentPosition(callback, handle_error);
+
+    function handle_error(err) {
+        switch (err.code) {
+            case 1: //PERMISSION_DENIED
+            case 2: //POSITION_UNAVAILABLE
+            case 3: //TIMEOUT
+            case 0: //UNKNOWN_ERROR
+        }
+    }
+
+            </pre>
+        </section>
+
+        <section class="slide" id="websockets">
+            <header>
+                <h1>Websockets</h1>
+            </header>
+
+            <pre>
+    var host = "ws://localhost:8080";
+    var socket = new WebSocket(host);
+
+    socket.onopen = function() {
+
+    };
+
+    socket.onmessage = function(message) {
+
+    };
+
+    socket.onclose = function() {
+
+    }:
+
+    socket.onerror = function(err) {
+
+    }:
+            </pre>
+        </section>
+
+        <section class="slide" id="websockets_cont">
+            <header>
+                <h1>Websockets</h1>
+            </header>
+
+            <pre>
+    socket.send("My data");
+
+    var myObject = {
+        title: "My title"
+    }
+
+    socket.send(JSON.stringify(myObject));
+
+    socket.close();
+            </pre>
         </section>
 
         <footer id="mainFooter">

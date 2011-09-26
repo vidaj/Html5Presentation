@@ -1,0 +1,88 @@
+.source {
+    font-size: 80%;
+}
+
+#introslide img {
+    position:absolute;
+    left: 35%;
+    top: 25%;
+}
+
+
+#aboutslide ul {
+    list-style: none;
+}
+
+#aboutslide p {
+    font-size: 200%;
+}
+
+#aboutslide ul {
+    margin-top: 100px;
+}
+
+#toc_slide ul {
+    margin-top: 50px;
+}
+
+#aboutslide li, #toc_slide li {
+    font-size: 150%;
+    margin-bottom: 20px;
+}
+
+#new_elements ul, #new_apis ul, #removed_elements ul {
+    -webkit-column-width: 13em;
+    -webkit-column-gap: 1em;
+    -webkit-column-count: 3;
+}
+
+
+#new_elements li, #removed_elements li {
+    font-size: 130%;
+    margin-bottom: 5px;
+}
+
+#form_with_required {
+    margin-top: 100px;
+    margin-bottom: 50px;
+}
+
+#form_type_examples label {
+    position: relative;
+    float: left;
+    clear: both;
+}
+
+
+#form_type_examples {
+    position: relative;
+}
+
+#form_input_types pre {
+    position:relative;
+    clear:both;
+    float:left;
+}
+
+
+
+.videoContainer {
+    display: block;
+    padding: 0;
+    margin:  0;
+
+}
+
+#snapshotContainer {
+    position: absolute;
+    right: 1%;
+    top: 20%;
+}
+
+
+video, .snapshot, .videoContainer  {
+    width: 320px;
+    height: 180px;
+    padding:  0;
+    margin:  0;
+}

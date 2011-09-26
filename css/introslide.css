@@ -1,0 +1,16 @@
+#introslide ul {
+    list-style: none;
+}
+
+#introslide p {
+    font-size: 200%;
+}
+
+#introslide ul {
+    margin-top: 100px;
+}
+
+#introslide li {
+    font-size: 150%;
+    margin-bottom: 20px;
+}

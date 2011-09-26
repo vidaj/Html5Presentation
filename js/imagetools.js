@@ -151,7 +151,7 @@ var ImageUpdater = function() {
         var width = this.canvas.clientWidth;
 
         var halfHeight = Math.abs(height / 2);
-        var halfWidth = Math.abs(width & 2);
+        var halfWidth = Math.abs(width / 2);
 
         this.context.save();
         this.context.clearRect(0, 0, width, height);
@@ -196,7 +196,6 @@ var ImageEditorView = function() {
 
         var canvas = elementFactory.createCanvas();
         $(canvas).addClass('snapshot');
-        console.log(imageStats);
         $(canvas).attr('height', imageStats.height);
         $(canvas).attr('width', imageStats.width);
 
@@ -244,12 +243,6 @@ var ImageEditor = function(image) {
     var view = new ImageEditorView(eventHub);
     var canvas = view.replaceImageWithCanvas(image);
     var model = new ImageUpdater(canvas, image, eventHub);
-
-    console.log($('video')[0].clientHeight);
-    console.log($('video')[0].clientWidth);
-
-    console.log(canvas.clientHeight);
-    console.log(canvas.clientWidth);
 
 
     var actions = {
