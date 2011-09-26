@@ -86,3 +86,14 @@ video, .snapshot, .videoContainer  {
     padding:  0;
     margin:  0;
 }
+
+#knowit ul {
+    position: absolute;
+    right: 15%;
+    top: 20%;
+    font-size: 200%;
+}
+
+#knowit ul li {
+    margin-bottom: 10px;
+}
